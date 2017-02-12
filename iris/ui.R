@@ -21,11 +21,11 @@ shinyUI(fluidPage(
     sidebarPanel(
        selectizeInput("xvar",
                       "variable 1",
-                      choices = colnames(iris)[1:4],
+                      choices = colnames(iris)[c(1,3,4)],
                       selected = "Sepal.Length"),
        selectizeInput("yvar",
                       "variable 2",
-                      choices = colnames(iris)[1:4],
+                      choices = colnames(iris)[2:4],
                       selected = "Sepal.Width"),
        sliderInput("ps",
                    "point size",

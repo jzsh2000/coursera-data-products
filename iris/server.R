@@ -12,7 +12,19 @@ library(ggplot2)
 library(plotly)
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
+
+  observeEvent(input$yvar,
+    updateSelectizeInput(session, "xvar",
+                         choices = setdiff(colnames(iris)[1:4],
+                                           input$yvar),
+                         selected = input$xvar))
+
+  observeEvent(input$xvar,
+    updateSelectizeInput(session, "yvar",
+                         choices = setdiff(colnames(iris)[1:4],
+                                           input$xvar),
+                         selected = input$yvar))
 
   output$irisPlot <- renderPlotly({
       if (input$col == "True") {
