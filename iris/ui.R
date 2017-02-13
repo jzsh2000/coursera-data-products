@@ -11,37 +11,40 @@ library(shiny)
 library(plotly)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
+shinyUI(navbarPage(title = "iris species predictor",
 
-  # Application title
-  titlePanel("iris data viewer"),
+    tabPanel("document"),
+    tabPanel("data viewer",
+             # Application title
+             titlePanel("iris data viewer"),
 
-  # Sidebar with a slider input for number of bins
-  sidebarLayout(
-    sidebarPanel(
-       selectizeInput("xvar",
-                      "variable 1",
-                      choices = colnames(iris)[c(1,3,4)],
-                      selected = "Sepal.Length"),
-       selectizeInput("yvar",
-                      "variable 2",
-                      choices = colnames(iris)[2:4],
-                      selected = "Sepal.Width"),
-       sliderInput("ps",
-                   "point size",
-                   min = 1,
-                   max = 4,
-                   value = 2,
-                   step = 0.5),
-       radioButtons("col",
-                    "color by species",
-                    choices = c("True", "False"),
-                    inline = TRUE)
-    ),
+             # Sidebar with a slider input for number of bins
+             sidebarLayout(
+                 sidebarPanel(
+                     selectizeInput("xvar",
+                                    "variable 1",
+                                    choices = colnames(iris)[1:4],
+                                    selected = "Sepal.Length"),
+                     selectizeInput("yvar",
+                                    "variable 2",
+                                    choices = colnames(iris)[1:4],
+                                    selected = "Sepal.Width"),
+                     sliderInput("ps",
+                                 "point size",
+                                 min = 1,
+                                 max = 4,
+                                 value = 2,
+                                 step = 0.5),
+                     radioButtons("col",
+                                  "color by species",
+                                  choices = c("True", "False"),
+                                  inline = TRUE)
+                 ),
 
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotlyOutput("irisPlot")
-    )
-  )
+                 # Show a plot of the generated distribution
+                 mainPanel(
+                     plotlyOutput("irisPlot")
+                 )
+             )),
+    tabPanel("class predictor")
 ))
