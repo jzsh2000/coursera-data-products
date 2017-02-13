@@ -1,0 +1,88 @@
+iris species predictor
+========================================================
+author: Xiaoyang Jin
+date: 2017-02-13
+autosize: true
+font-family: 'Chalkboard'
+
+```{r setup, include=FALSE}
+opts_chunk$set(echo=FALSE, cache=TRUE)
+```
+
+
+About iris dataset
+========================================================
+
+> This famous (Fisher's or Anderson's) iris data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are _Iris setosa_, _versicolor_, and _virginica_.
+
+***
+
+```{r echo=TRUE}
+barplot(table(iris$Species))
+```
+
+
+Data viewer
+========================================================
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x = Petal.Length, y = Petal.Width,
+                 color = Species)) +
+    geom_point(alpha = .7, size = 2)
+```
+
+***
+
+**Input control**
+
+- `variable 1` (selectizeInput)
+- `variable 2` (selectizeInput)
+- `point size` (sliderInput)
+- `color by species` (radioButtons)
+
+**Output**
+
+- scatter plot of iris data
+
+Class predictor
+========================================================
+
+```{r}
+library(caret)
+library(rpart)
+library(rpart.plot)
+
+set.seed(2017)
+train.idx = createDataPartition(iris$Species, p = 0.7, list = FALSE)
+train_data = iris[train.idx,]
+model = train(
+    Species ~ .,
+    data = train_data,
+    method = "rpart",
+    trControl =
+    trainControl(method = "cv",number = 10)
+    )
+prp(model$finalModel)
+```
+
+***
+
+**Input control**
+
+- `random seed`
+- `training percentage`
+- `cross-validation fold`
+- `classification method`
+
+**Output**
+
+- `rpart` model plot
+- confusion matrix on test set
+
+Thanks
+========================================================
+
+run application demo at <https://jzsh2000.shinyapps.io/iris/>
+
+![smile face](http://www.clipartkid.com/images/0/smiley-face-clip-art-dr-odd-uWlQ3w-clipart.jpg)
