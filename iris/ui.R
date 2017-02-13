@@ -13,7 +13,12 @@ library(plotly)
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(title = "iris species predictor",
 
-    tabPanel("document"),
+    tabPanel("document",
+             fluidRow(
+                 column(width = 8,
+                        includeMarkdown("doc.md"),
+                        offset = 2)
+             )),
     tabPanel("data viewer",
              # Application title
              titlePanel("iris data viewer"),
