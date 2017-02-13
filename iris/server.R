@@ -12,7 +12,7 @@ library(ggplot2)
 library(plotly)
 library(caret)
 library(rpart)
-library(rattle)
+library(rpart.plot)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
@@ -54,7 +54,7 @@ shinyServer(function(input, output, session) {
     })
 
     output$rpartTree <- renderPlot({
-        fancyRpartPlot(trainModel()$finalModel)
+        prp(trainModel()$finalModel)
     })
 
     output$rpartSummary <- renderPrint({
