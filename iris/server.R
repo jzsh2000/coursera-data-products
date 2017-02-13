@@ -11,6 +11,7 @@ library(shiny)
 library(ggplot2)
 library(plotly)
 library(caret)
+library(e1071)
 library(rpart)
 library(rpart.plot)
 

@@ -9,6 +9,7 @@
 
 library(shiny)
 library(plotly)
+library(markdown)
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage(title = "iris species predictor",
