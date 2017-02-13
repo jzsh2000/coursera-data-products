@@ -24,11 +24,11 @@ shinyUI(navbarPage(title = "iris species predictor",
                      selectizeInput("xvar",
                                     "variable 1",
                                     choices = colnames(iris)[1:4],
-                                    selected = "Sepal.Length"),
+                                    selected = "Petal.Length"),
                      selectizeInput("yvar",
                                     "variable 2",
                                     choices = colnames(iris)[1:4],
-                                    selected = "Sepal.Width"),
+                                    selected = "Petal.Width"),
                      sliderInput("ps",
                                  "point size",
                                  min = 1,
@@ -46,5 +46,38 @@ shinyUI(navbarPage(title = "iris species predictor",
                      plotlyOutput("irisPlot")
                  )
              )),
-    tabPanel("class predictor")
+    tabPanel("class predictor",
+             titlePanel("iris class predictor"),
+             sidebarLayout(
+                 sidebarPanel(
+                     numericInput("seed",
+                                  "random seed",
+                                  value = 2017,
+                                  min = 0),
+                     sliderInput("train_p",
+                                 "training percentage",
+                                 min = 0.2,
+                                 max = 0.9,
+                                 value = 0.7,
+                                 step = 0.05),
+                     sliderInput("cv_fold",
+                                 "cross-validation fold",
+                                 min = 2,
+                                 max = 20,
+                                 value = 10,
+                                 step = 1),
+                     radioButtons("train_method",
+                                  "classification method",
+                                  choices = c("rpart"),
+                                  inline = TRUE)
+                 ),
+                 mainPanel(
+                     tabsetPanel(
+                         tabPanel("decision tree",
+                                  plotOutput("rpartTree")),
+                         tabPanel("confusion matrix",
+                                  verbatimTextOutput("rpartSummary"))
+                     )
+                 )
+             ))
 ))
